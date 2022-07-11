@@ -1,10 +1,8 @@
 # MicroAI-GUI-Dashboard
-A GUI Dashboard created using the Micro AI Github Repository
+A GUI Dashboard created to visualize the output of the Micro AI AtomML SDK (Available on their Github Page). To view the GUI, the program will need to run on a device also running Micro AI's AtomML SDK.
 
 
-Along with the Micro AI Github repository, this program works with external libraries. 
-
-The libraries that need to be installed include:
+This program requires the following external libraries:
 * tkinter
 * turtle
 * matplotlib
@@ -14,7 +12,9 @@ The libraries that need to be installed include:
 * redis
 * datetime
 
+Users can change Sensor names and overall GUI look and feel within the tkinterGUI.py file itself.
 
-The program will need to run alongside Micro AI's AtomML SDK.
+
+
 
 
