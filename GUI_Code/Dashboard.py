@@ -17,6 +17,9 @@ matplotlib.use("TkAgg")
 r = redis.Redis(host='192.168.2.122', port=6379, db=0) #change host to your ip
 running = False #checks to see if the program is running (do not change)
 font = 'Arial' #font for the whole app
+title_changer = ["1: Abnormal Behavior of CPU Usage Percent Over Time","2: Abnormal Behavior of RAM Usage Percent Over Time", "3: Abnormal Behavior of Disc Reads Over Time", 
+    "4: Abnormal Behavior of Disc Writes Over Time",
+    "5: Abnormal Behavior of Temperature Over Time", "6: Abnormal Behavior of Load Average Over Time"] #titles for the graphs
 
 class figMaker:     
     def __init__(self, x, y, res, title):
@@ -444,12 +447,10 @@ class Main:
         app.mainloop()
 
 class Charts:
-
+    global title_changer
     subarray = [1,2,7,8,13,14]
     channelarray = ["c0","c3","c1","c2","c4","c5"]
-    titles = ["1: Abnormal Behavior of CPU Usage Percent Over Time","2: Abnormal Behavior of RAM Usage Percent Over Time", "3: Abnormal Behavior of Disc Reads Over Time", 
-    "4: Abnormal Behavior of Disc Writes Over Time",
-    "5: Abnormal Behavior of Temperature Over Time", "6: Abnormal Behavior of Load Average Over Time"]
+    titles = title_changer
     yaxs = ["Percent", "Percent", "Disc Reads", "Disc Writes", "º Fahrenheit", "Number of Cores"]
    
     x = 0 
