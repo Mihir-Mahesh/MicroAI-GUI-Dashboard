@@ -389,41 +389,10 @@ class Graph_Page(Frame):
 class Splash(Frame):
         def __init__(self, parent, controller):
             Frame.__init__(self, parent)
-            self.bg = ImageTk.PhotoImage(file='/home/pi/Pictures/splash_pic.png')
+            self.bg = ImageTk.PhotoImage(file='splash_pic.png')
             label = Label(self, image=self.bg)
             label.place(x=0,y=0)
-            self.after(5000,lambda:controller.show_frame(Graph_Page))
-            
-
-# class Login(Frame):
-#         def __init__(self, parent, controller):
-#             global font
-#             Frame.__init__(self,parent)
-#             self.bg = ImageTk.PhotoImage(file='/home/pi/Pictures/MicroAIFactory-1.jpg')
-#             label = Label(self, image=self.bg)
-#             label.place(x=0,y=0)
-#             self.carousel = ImageTk.PhotoImage(file='/home/pi/Pictures/first-carousel.png')
-#             bigpic = Label(self,image=self.carousel)
-#             bigpic.place(x=100,y=180)
-            
-#             self.logo = PhotoImage(file='/home/pi/Pictures/Screen Shot 2022-06-22 at 5.19.42 PM.png')
-#             label_logo = Label(self, image=self.logo)
-#             label_logo.pack()
-#             w = Canvas(self, height=564, width=580, background='#1c2e4a')
-#             Label_Maker.placer(w, 60, 15, "Please enter your Email and \nPassword to log in:", 25, "white")
-#             Label_Maker.placer(w, 60, 130, "Email:", 25, "white")
-#             username = Entry(w, width=45)
-#             username.place(x=60, y=180)
-#             Label_Maker.placer(w, 60, 240, "Password:", 25, "white")
-#             password = Entry(w,  show = '*', width=45)
-#             password.place(x=60, y=290)
-#             button3 = Button(w, text="Login", width=42,highlightbackground= '#1c2e4a',command=lambda: controller.show_frame(Graph_Page),fg='white', bg='#039be5', font=(font))
-#             button3.place(x=60, y=370)
-#             button4 = Button(w, text="Forgot Password?", width=42,highlightbackground= '#1c2e4a',command=lambda: controller.show_frame(StartPage), font=(font))
-#             button4.place(x=60, y=435)
-#             button5 = Button(w, text="New User?", width=42,highlightbackground= '#1c2e4a',command=lambda: controller.show_frame(Create_Login), font=(font))
-#             button5.place(x=60, y=500)
-#             w.place(x=1250,y=180)
+            self.after(5000,lambda:controller.show_frame(Graph_Page)
 
 
 
@@ -433,7 +402,7 @@ class PageOne(Frame):
             global font
             global name
             Frame.__init__(self,parent)
-            self.bg = ImageTk.PhotoImage(file='/home/pi/Pictures/MicroAIFactory-1.jpg')
+            self.bg = ImageTk.PhotoImage(file='MicroAIFactory-1.jpg')
             
             label = Label(self, image=self.bg)
             label.place(x=0,y=0)
