@@ -20,6 +20,8 @@ font = 'Arial' #font for the whole app
 title_changer = ["1: Abnormal Behavior of CPU Usage Percent Over Time","2: Abnormal Behavior of RAM Usage Percent Over Time", "3: Abnormal Behavior of Disc Reads Over Time", 
     "4: Abnormal Behavior of Disc Writes Over Time",
     "5: Abnormal Behavior of Temperature Over Time", "6: Abnormal Behavior of Load Average Over Time"] #titles for the graphs
+yaxis_changer = ["Percent", "Percent", "Disc Reads", "Disc Writes", "º Fahrenheit", "Number of Cores"] #y-axis labels for the graph
+
 
 class figMaker:     
     def __init__(self, x, y, res, title):
@@ -88,10 +90,8 @@ class subplotMaker:
         self.ax.set_xlabel("Time (s)", fontsize = 7)
         self.ax.set_ylabel(self.y_label)
         self.ax.plot(self.x, self.y, color = "red")
-        #Graph_Page.hsConfig(int(self.y[len(self.y) - 1] * 100))
         if (self.y[len(self.y) - 1] * 100 < 99):
             Graph_Page.add_error(str(int(self.y[len(self.y) - 1] * 100)))
-        #Graph_Page.pred_maint(int(self.y[len(self.y) - 1] * 10))
     
     def get_value(self):
         return self.y
@@ -153,17 +153,6 @@ class Analytics:
 
         return vals
 
-        
-
-    
-    
-
-    
-    
-
-
-
-
 
 class MicroAI_App(Tk):
 
@@ -190,12 +179,6 @@ class MicroAI_App(Tk):
 
             frame = self.frames[cont]
             frame.tkraise()
-
-
-
-            
-
-
 
 
 class Graph_Page(Frame):
@@ -383,10 +366,6 @@ class Graph_Page(Frame):
             an_4.config(text=str4)
             an_5.config(text=str5)
             an_6.config(text=str6)
-            
-
-
-
 
     
 class Splash(Frame):
@@ -396,8 +375,7 @@ class Splash(Frame):
             label = Label(self, image=self.bg)
             label.place(x=0,y=0)
             self.after(5000,lambda:controller.show_frame(Graph_Page)
-
-
+                       
 
 class PageOne(Frame):
         name = ""
@@ -423,45 +401,42 @@ class PageOne(Frame):
         
         def getName():
             return name.get()
-
-
-
-
-
-
-
-
+                       
 
 class Main: 
+                       
     global running
     fig = figMaker(10, 6, 100, "Sensor Data")
     fig.figMaker()
     fig1 = figMaker(10, 3, 100, "Health Score")
     fig1.figMaker()
+                       
     def main():
         global running
+                       
         running = True
         app = MicroAI_App()
         ani = animation.FuncAnimation(Main.fig.figs, Charts.animate, interval=1000)
         ani1 = animation.FuncAnimation(Main.fig1.figs, Charts.animate1, interval=1000)
         app.mainloop()
 
+                       
 class Charts:
+                       
     global title_changer
+    global yaxis_changer
+                       
     subarray = [1,2,7,8,13,14]
     channelarray = ["c0","c3","c1","c2","c4","c5"]
     titles = title_changer
-    yaxs = ["Percent", "Percent", "Disc Reads", "Disc Writes", "º Fahrenheit", "Number of Cores"]
-   
+    yaxs = yaxis_changer
     x = 0 
     subplots = []
     sub1 = subplotMaker(Main.fig1.figs, 1, 1, 1, "HS_1", "Health Score", "Health Score Value (out of 1)")
    
-
     while (x < 6):
         subplots.append(subplotMaker(Main.fig.figs, 9, 2, subarray[x], channelarray[x], titles[x], yaxs[x]))
         x+=1
-        
 
     def animate(i):
         data = []
