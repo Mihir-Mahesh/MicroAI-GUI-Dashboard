@@ -24,6 +24,7 @@ yaxis_changer = ["Percent", "Percent", "Disc Reads", "Disc Writes", "º Fahrenhe
 
 
 class figMaker:     
+    
     def __init__(self, x, y, res, title):
         self.x = x
         self.y = y
@@ -35,6 +36,7 @@ class figMaker:
         self.figs.suptitle(self.title)
 
 class subplotMaker:
+    
     def __init__(self, fig, num_col, num_row, num_ax, redis_key, title, yax):
         self.fig = fig
         self.ax = fig.add_subplot(num_col, num_row, num_ax)
@@ -51,6 +53,7 @@ class subplotMaker:
             self.x.append(max(self.x) + 1)
         else:
             self.x.append(0)
+            
         if (self.redis_key != "HS_1"):
             self.y.append(float(r.get(self.redis_key + "_R")))
             self.upper.append(float(r.get(self.redis_key + "_U")))
@@ -68,6 +71,7 @@ class subplotMaker:
     
     def graph(self):
         self.ax.clear()
+        
         self.ax.set_xlabel("Time (s)", fontsize = 7)
         self.ax.set_ylabel(self.y_label, fontsize = 6)
         self.ax.tick_params(labelsize=5)
@@ -90,6 +94,7 @@ class subplotMaker:
         self.ax.set_xlabel("Time (s)", fontsize = 7)
         self.ax.set_ylabel(self.y_label)
         self.ax.plot(self.x, self.y, color = "red")
+        
         if (self.y[len(self.y) - 1] * 100 < 99):
             Graph_Page.add_error(str(int(self.y[len(self.y) - 1] * 100)))
     
@@ -98,8 +103,10 @@ class subplotMaker:
 
 
 class Label_Maker:
+    
             def placer(root, x, y, text, font_size, color):
                 global font
+                
                 if color == "black":
                     Label(root, text=text, font=(font,font_size), fg="black", bg= "white").place(x=x, y=y)
                 else:
@@ -113,8 +120,10 @@ class Label_Maker:
 
 
 class Analytics:
+    
     analytic_Data = ["Std Dev. (over the last 20 values)", "Variance (over the last 20 values)", "Difference between Bounds", "Range (of the last 20 values)",
                         "Average (of the last 20 values)", "Delta (of the last 2 values)"]
+    
     def __init__(self, std, var, dbb, range, avg, delta):
         self.std = std
         self.var = var
@@ -157,7 +166,6 @@ class Analytics:
 class MicroAI_App(Tk):
 
         def __init__(self, *args, **kwargs):
-            
             Tk.__init__(self, *args, **kwargs)
             Tk.wm_title(self, "Micro AI Dashboard")            
             self.geometry("2000x900")
@@ -168,7 +176,6 @@ class MicroAI_App(Tk):
             self.frames = {}
 
             for F in (Splash, Graph_Page, PageOne):
-
                 frame = F(container, self)
                 self.frames[F] = frame
                 frame.grid(row=0, column=0, sticky="nsew")
@@ -176,7 +183,6 @@ class MicroAI_App(Tk):
             self.show_frame(Splash)
 
         def show_frame(self, cont):
-
             frame = self.frames[cont]
             frame.tkraise()
 
@@ -207,7 +213,6 @@ class Graph_Page(Frame):
             global label
             global root
             global font
-            root = self
 
             global an_1
             global an_2
@@ -215,7 +220,9 @@ class Graph_Page(Frame):
             global an_4
             global an_5
             global an_6
-
+            
+            root = self
+            
             message = ""
             Frame.__init__(self, parent, bg="white")
             label = Label(self, text= "Raspberry Pi Monitoring Dashboard", font = (font, 30), bg = "white")
@@ -223,7 +230,6 @@ class Graph_Page(Frame):
             button1 = Button(self, text="Logout", font = (font),
                                 command=lambda: controller.show_frame(Login))
             button1.configure(highlightbackground='black', fg='black', bg = "white")
-            #button1.place(x=450, y=15)
 
             button2 = Button(self, text="Settings", font = (font), command=lambda: controller.show_frame(PageOne))
             button2.place(x = 1439, y = 15)
@@ -236,7 +242,6 @@ class Graph_Page(Frame):
             canvas.get_tk_widget().pack(side=BOTTOM, fill=BOTH, expand=True)
             canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
             w.place(x=0, y=100)
-
 
             w1 = Canvas(self, height=1000, width=1000, background='red')
             canvas1 = FigureCanvasTkAgg(Main.fig1.figs, w1)
@@ -252,8 +257,6 @@ class Graph_Page(Frame):
             table_canv_label = Label(table_canv, bg = "white")
             table_canv_label.pack(pady=5)
             table_canv.place(x=1000, y=605)
-
-            
 
             cpu_canv = Canvas(self, height = 400/3, width = 885/2, highlightbackground="black", bg = "white")
             cpu_canv.pack_propagate(False)
@@ -286,10 +289,8 @@ class Graph_Page(Frame):
             ram_canv.pack_propagate(False)
             Label(ram_canv, text="4:", bg="white", font = (font, 20)).place(x=5,y=5)
 
-
             an_4 = Label(ram_canv, text="", bg = "white", font=(font, 8))
             an_4.place(x=5, y= 60)
-
 
             ram_canv.place(x=1000 + 885/2,y=140 + 400/3)
 
@@ -300,26 +301,16 @@ class Graph_Page(Frame):
             an_5 = Label(temp_canv, text="", bg = "white", font=(font, 8))
             an_5.place(x=5, y= 60)
 
-
             temp_canv.place(x=1000,y=140 + 400/3 + 400/3)
-
-
-
 
             load_canv = Canvas(self, height = 400/3, width = 885/2, highlightbackground="black", bg = "white")
             load_canv.pack_propagate(False)
 
-
             an_6 = Label(load_canv, text="", bg = "white", font=(font, 8))
             an_6.place(x=5, y= 60)
 
-
-
             Label(load_canv, text="6:", bg="white", font = (font, 20)).place(x=5,y=5)
-            load_canv.place(x=1000 + 885/2,y=140 + 400/3 + 400/3)
-
-
-            
+            load_canv.place(x=1000 + 885/2,y=140 + 400/3 + 400/3)        
 
         def hsConfig(texts):
             health_score.config(text=texts)
@@ -327,6 +318,7 @@ class Graph_Page(Frame):
         def add_error(health):
             global message
             global table_canv_label
+            
             if message.count("\n") > 10:
                 message = message[message.index("\n") + 1:]
             message += "\n"
@@ -339,6 +331,7 @@ class Graph_Page(Frame):
                 message += name + "        Health Score Error        Health Score = " + str(health) + "        " + str(datetime.datetime.now())
             else:
                 message += "Raspberry Pi" + "        Health Score Error        Health Score = " + str(health) + "        " + str(datetime.datetime.now())
+                
             table_canv_label.config(text=message)
         
         def pred_maint(health):
@@ -347,6 +340,7 @@ class Graph_Page(Frame):
         def get_name():
             global running
             global label
+            
             if (running and PageOne.getName() == ""):
                 label.config(text="Raspberry Pi Monitoring Dashboard")
             else:
@@ -369,6 +363,7 @@ class Graph_Page(Frame):
 
     
 class Splash(Frame):
+    
         def __init__(self, parent, controller):
             Frame.__init__(self, parent)
             self.bg = ImageTk.PhotoImage(file='splash_pic.png')
@@ -378,10 +373,13 @@ class Splash(Frame):
                        
 
 class PageOne(Frame):
+                       
         name = ""
+                       
         def __init__(self, parent, controller):
             global font
             global name
+                       
             Frame.__init__(self,parent)
             self.bg = ImageTk.PhotoImage(file='MicroAIFactory-1.jpg')
             
@@ -406,6 +404,7 @@ class PageOne(Frame):
 class Main: 
                        
     global running
+                       
     fig = figMaker(10, 6, 100, "Sensor Data")
     fig.figMaker()
     fig1 = figMaker(10, 3, 100, "Health Score")
@@ -452,11 +451,7 @@ class Charts:
         Charts.sub1.append_all()
         Charts.sub1.graph_hs()
         plt.show()
-
-
-
-
-
+                       
 
 if __name__ == "__main__":
     m = Main.main()
