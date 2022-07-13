@@ -12,7 +12,7 @@ This program requires the following external libraries:
 * redis
 * datetime
 
-Users can change Sensor names and overall GUI look and feel within the Dashboard.py file itself.
+Users can change Sensor names and overall GUI look and feel within the GUI Code folder using Dashboard.py file itself.
 
 
 
